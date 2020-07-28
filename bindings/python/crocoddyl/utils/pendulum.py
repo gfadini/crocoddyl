@@ -33,7 +33,7 @@ class CostModelDoublePendulum(crocoddyl.CostModelAbstract):
         data.Lxx = np.diag(Lxx)
 
     def createData(self, collector):
-        print collector
+        print(collector)
         data = CostDataDoublePendulum(self, collector)
         return data
 
