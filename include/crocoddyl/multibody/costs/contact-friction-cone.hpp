@@ -12,6 +12,7 @@
 #include "crocoddyl/multibody/fwd.hpp"
 #include "crocoddyl/multibody/cost-base.hpp"
 #include "crocoddyl/multibody/contact-base.hpp"
+#include "crocoddyl/multibody/contacts/contact-2d.hpp"
 #include "crocoddyl/multibody/contacts/contact-3d.hpp"
 #include "crocoddyl/multibody/contacts/contact-6d.hpp"
 #include "crocoddyl/multibody/data/contacts.hpp"
@@ -111,6 +112,12 @@ struct CostDataContactFrictionConeTpl : public CostDataAbstractTpl<_Scalar> {
     for (typename ContactModelMultiple::ContactDataContainer::iterator it = d->contacts->contacts.begin();
          it != d->contacts->contacts.end(); ++it) {
       if (it->second->frame == fref.frame) {
+        ContactData2DTpl<Scalar>* d2d = dynamic_cast<ContactData2DTpl<Scalar>*>(it->second.get());
+        if (d2d != NULL) {
+          found_contact = true;
+          contact = it->second;
+          break;
+        }
         ContactData3DTpl<Scalar>* d3d = dynamic_cast<ContactData3DTpl<Scalar>*>(it->second.get());
         if (d3d != NULL) {
           found_contact = true;
