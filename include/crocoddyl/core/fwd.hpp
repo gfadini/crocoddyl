@@ -105,6 +105,11 @@ class IntegratedActionModelRK4Tpl;
 template <typename Scalar>
 struct IntegratedActionDataRK4Tpl;
 
+template <typename Scalar>
+class IntegratedActionModelLPFTpl;
+template <typename Scalar>
+struct IntegratedActionDataLPFTpl;
+
 // state
 template <typename Scalar>
 class StateVectorTpl;
@@ -192,6 +197,8 @@ typedef IntegratedActionModelEulerTpl<double> IntegratedActionModelEuler;
 typedef IntegratedActionDataEulerTpl<double> IntegratedActionDataEuler;
 typedef IntegratedActionModelRK4Tpl<double> IntegratedActionModelRK4;
 typedef IntegratedActionDataRK4Tpl<double> IntegratedActionDataRK4;
+typedef IntegratedActionModelLPFTpl<double> IntegratedActionModelLPF;
+typedef IntegratedActionDataLPFTpl<double> IntegratedActionDataLPF;
 
 typedef StateVectorTpl<double> StateVector;
 

@@ -26,6 +26,7 @@ void exposeActuationSquashing();
 void exposeDataCollectorActuation();
 void exposeIntegratedActionEuler();
 void exposeIntegratedActionRK4();
+void exposeIntegratedActionLPF();
 void exposeActionNumDiff();
 void exposeDifferentialActionNumDiff();
 void exposeActivationNumDiff();
