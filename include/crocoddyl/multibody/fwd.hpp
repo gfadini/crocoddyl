@@ -328,6 +328,7 @@ typedef ContactModel6DTpl<double> ContactModel6D;
 typedef ContactData6DTpl<double> ContactData6D;
 
 typedef StateMultibodyTpl<double> StateMultibody;
+typedef StateLPFTpl<double> StateLPF;
 
 typedef DataCollectorMultibodyTpl<double> DataCollectorMultibody;
 typedef DataCollectorActMultibodyTpl<double> DataCollectorActMultibody;
