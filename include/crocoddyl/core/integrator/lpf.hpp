@@ -29,14 +29,14 @@ class IntegratedActionModelLPFTpl : public ActionModelAbstractTpl<_Scalar> {
   typedef typename MathBase::VectorXs VectorXs;
   typedef typename MathBase::MatrixXs MatrixXs;
 
-  IntegratedActionModelLPFTpl(boost::shared_ptr<DifferentialActionModelAbstract> model,
+  IntegratedActionModelLPFTpl(boost::shared_ptr<DifferentialActionModelAbstract> model, const Scalar& nu = 0,
                                 const Scalar& time_step = Scalar(1e-3), const bool& with_cost_residual = true, const Scalar& alpha = 0);
   virtual ~IntegratedActionModelLPFTpl();
 
-  virtual void calc(const boost::shared_ptr<ActionDataAbstract>& data, const Eigen::Ref<const VectorXs>& x,
-                    const Eigen::Ref<const VectorXs>& u);
-  virtual void calcDiff(const boost::shared_ptr<ActionDataAbstract>& data, const Eigen::Ref<const VectorXs>& x,
-                        const Eigen::Ref<const VectorXs>& u);
+  virtual void calc(const boost::shared_ptr<ActionDataAbstract>& data, const Eigen::Ref<const VectorXs>& y,
+                    const Eigen::Ref<const VectorXs>& w);
+  virtual void calcDiff(const boost::shared_ptr<ActionDataAbstract>& data, const Eigen::Ref<const VectorXs>& y,
+                        const Eigen::Ref<const VectorXs>& w);
   virtual void setAlpha(const Scalar& f_c);
   virtual boost::shared_ptr<ActionDataAbstract> createData();
   virtual bool checkData(const boost::shared_ptr<ActionDataAbstract>& data);
@@ -61,6 +61,8 @@ class IntegratedActionModelLPFTpl : public ActionModelAbstractTpl<_Scalar> {
   using Base::u_lb_;                //!< Lower control limits
   using Base::u_ub_;                //!< Upper control limits
   using Base::unone_;               //!< Neutral state
+  int nw_;                          //!< Unfiltered torque dimension
+  int ny_;                          //!< Augmented state dimension
 
  private:
   boost::shared_ptr<DifferentialActionModelAbstract> differential_;
@@ -84,8 +86,8 @@ struct IntegratedActionDataLPFTpl : public ActionDataAbstractTpl<_Scalar> {
   template <template <typename Scalar> class Model>
   explicit IntegratedActionDataLPFTpl(Model<Scalar>* const model) : Base(model) {
     differential = model->get_differential()->createData();
-    const std::size_t& ndx = model->get_state()->get_ndx();
-    dx = VectorXs::Zero(ndx);
+    const std::size_t& ndy = model->get_state()->get_ndx() + model->get_nu();
+    dx = VectorXs::Zero(ndy);
   }
   virtual ~IntegratedActionDataLPFTpl() {}
 

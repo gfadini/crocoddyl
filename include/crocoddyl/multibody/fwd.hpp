@@ -215,6 +215,9 @@ class WrenchConeTpl;
 template <typename Scalar>
 class StateMultibodyTpl;
 
+template <typename Scalar>
+class StateLPFTpl;
+
 // data collector
 template <typename Scalar>
 struct DataCollectorMultibodyTpl;

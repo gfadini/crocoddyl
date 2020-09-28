@@ -15,13 +15,15 @@ namespace crocoddyl {
 
 template <typename Scalar>
 IntegratedActionModelLPFTpl<Scalar>::IntegratedActionModelLPFTpl(
-    boost::shared_ptr<DifferentialActionModelAbstract> model, const Scalar& time_step, const bool& with_cost_residual, const Scalar& alpha)
+    boost::shared_ptr<DifferentialActionModelAbstract> model, const Scalar& nu, const Scalar& time_step, const bool& with_cost_residual, const Scalar& alpha)
     : Base(model->get_state(), model->get_nu(), model->get_nr()),
       differential_(model),
       time_step_(time_step),
       time_step2_(time_step * time_step),
       with_cost_residual_(with_cost_residual),
       alpha_(alpha),
+      nw_(model->get_nu()),
+      ny_(model->get_state()->get_nx() + model->get_nu()),
       enable_integration_(true) {
   Base::set_u_lb(differential_->get_u_lb());
   Base::set_u_ub(differential_->get_u_ub());
@@ -40,11 +42,16 @@ IntegratedActionModelLPFTpl<Scalar>::~IntegratedActionModelLPFTpl() {}
 
 template <typename Scalar>
 void IntegratedActionModelLPFTpl<Scalar>::calc(const boost::shared_ptr<ActionDataAbstract>& data,
-                                                 const Eigen::Ref<const VectorXs>& x,
-                                                 const Eigen::Ref<const VectorXs>& u) {
+                                                 const Eigen::Ref<const VectorXs>& y,
+                                                 const Eigen::Ref<const VectorXs>& w) {
+
+  const Eigen::Ref<const VectorXs>& x = y.head(state_->get_nx());
+  const Eigen::Ref<const VectorXs>& u = alpha_*y.tail(nw_) + (1-alpha_)*w;
+
   if (static_cast<std::size_t>(x.size()) != state_->get_nx()) {
     throw_pretty("Invalid argument: "
-                 << "x has wrong dimension (it should be " + std::to_string(state_->get_nx()) + ")");
+                 << "x has wrong dimension (it should be " + std::to_string(state_->get_nx()) + ")" + 
+                 "but it is " + std::to_string(x.size()));
   }
   if (static_cast<std::size_t>(u.size()) != nu_) {
     throw_pretty("Invalid argument: "
@@ -66,11 +73,15 @@ void IntegratedActionModelLPFTpl<Scalar>::calc(const boost::shared_ptr<ActionDat
   if (enable_integration_) {
     d->dx.head(nv).noalias() = v * time_step_ + a * time_step2_;
     d->dx.tail(nv).noalias() = a * time_step_;
-    differential_->get_state()->integrate(x, d->dx, d->xnext);
     d->cost = time_step_ * d->differential->cost;
+    const VectorXs& xplus = VectorXs::Zero(differential_->get_state()->get_nx());
+    differential_->get_state()->integrate(x, d->dx, d->xnext);
+    // NOT SURE HOW TO SET THIS PART FROM DIFFERENTIAL
+    d->xnext.head(differential_->get_state()->get_nx()).noalias() = xplus;
+    d->xnext.tail(differential_->get_state()->get_nx()).noalias() = u;
   } else {
     d->dx.setZero();
-    d->xnext = x;
+    d->xnext = y;
     d->cost = d->differential->cost;
   }
 

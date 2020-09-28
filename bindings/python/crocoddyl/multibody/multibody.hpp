@@ -19,6 +19,7 @@ void exposeFrames();
 void exposeFrictionCone();
 void exposeWrenchCone();
 void exposeStateMultibody();
+void exposeStateLPF();
 void exposeActuationFloatingBase();
 void exposeActuationFull();
 void exposeActuationModelMultiCopterBase();

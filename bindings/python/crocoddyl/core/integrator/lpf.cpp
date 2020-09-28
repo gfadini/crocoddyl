@@ -20,8 +20,8 @@ void exposeIntegratedActionLPF() {
       "This class implements a sympletic LPF integrator (a.k.a semi-implicit\n"
       "integrator) give a differential action model, i.e.:\n"
       "  [q+, v+] = State.integrate([q, v], [v + a * dt, a * dt] * dt).",
-      bp::init<boost::shared_ptr<DifferentialActionModelAbstract>, bp::optional<double, bool, double> >(
-          bp::args("self", "diffModel", "stepTime", "withCostResidual", "alpha"),
+      bp::init<boost::shared_ptr<DifferentialActionModelAbstract>, bp::optional<int, double, bool, double> >(
+          bp::args("self", "diffModel", "nu", "stepTime", "withCostResidual", "alpha"),
           "Initialize the sympletic LPF integrator.\n\n"
           ":param diffModel: differential action model\n"
           ":param stepTime: step time\n"
@@ -56,7 +56,7 @@ void exposeIntegratedActionLPF() {
       .def("createData", &IntegratedActionModelLPF::createData, bp::args("self"),
            "Create the LPF integrator data.")
       .def("setAlpha", &IntegratedActionModelLPF::setAlpha, bp::args("f_c"),
-           "Sets alpha from the cut off frequency f_c.")      
+           "Sets alpha from the cut off frequency f_c.")
       .add_property("differential",
                     bp::make_function(&IntegratedActionModelLPF::get_differential,
                                       bp::return_value_policy<bp::return_by_value>()),
