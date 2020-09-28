@@ -24,7 +24,9 @@ void exposeCore() {
   exposeDataCollectorActuation();
   exposeIntegratedActionEuler();
   exposeIntegratedActionRK4();
-  exposeIntegratedActionLPF();
+  exposeCostAbstract();
+  exposeCostSum();
+  exposeCostControl();
   exposeActionNumDiff();
   exposeDifferentialActionNumDiff();
   exposeActivationNumDiff();
