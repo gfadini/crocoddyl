@@ -13,35 +13,49 @@
 namespace crocoddyl {
 
 template <typename Scalar>
-StateLPFTpl<Scalar>::StateLPFTpl(boost::shared_ptr<pinocchio::ModelTpl<Scalar> > model, int nu)
+StateLPFTpl<Scalar>::StateLPFTpl(boost::shared_ptr<pinocchio::ModelTpl<Scalar> > model, std::size_t nu)
     : Base(model->nq + model->nv + nu, 2 * model->nv + nu), pinocchio_(model), x0_(VectorXs::Zero(model->nq + model->nv + nu)) {
-  x0_.head(nq_) = pinocchio::neutral(*pinocchio_.get());
-
   // In a multibody system, we could define the first joint using Lie groups.
   // The current cases are free-flyer (SE3) and spherical (S03).
   // Instead simple represents any joint that can model within the Euclidean manifold.
   // The rest of joints use Euclidean algebra. We use this fact for computing Jdiff.
 
-  // Define internally the limits of the first joint
+  nq_ = model->nq;
+  nv_ = model->nv;
+  nx_ = nq_ + nv_;
+  ny_ = nu + nx_;
+  nw_ = nu;
 
+  // Define internally the limits of the first joint
   const std::size_t nq0 = model->joints[1].nq();
 
   lb_.head(nq0) = -std::numeric_limits<Scalar>::infinity() * VectorXs::Ones(nq0);
   ub_.head(nq0) = std::numeric_limits<Scalar>::infinity() * VectorXs::Ones(nq0);
   lb_.segment(nq0, nq_ - nq0) = pinocchio_->lowerPositionLimit.tail(nq_ - nq0);
   ub_.segment(nq0, nq_ - nq0) = pinocchio_->upperPositionLimit.tail(nq_ - nq0);
-  lb_.tail(nv_) = -pinocchio_->velocityLimit;
-  ub_.tail(nv_) = pinocchio_->velocityLimit;
+  lb_.segment(nq_, nv_) = -pinocchio_->velocityLimit;
+  ub_.segment(nq_, nv_) = pinocchio_->velocityLimit;
+  lb_.tail(nw_) = -pinocchio_->effortLimit;
+  ub_.tail(nw_) = pinocchio_->effortLimit;
   Base::update_has_limits();
-  nq_ = model->nq;
-  nv_ = model->nv;
-  nx_ = nq_ + nv_;
-  ny_ = nu + nx_;
-  nw_ = nu;
+
+
+  x0_ = VectorXs::Zero(ny_); // BUG of else some values were uninitialized
+  x0_.head(nq_) = pinocchio::neutral(*pinocchio_.get());
 }
 
 template <typename Scalar>
 StateLPFTpl<Scalar>::~StateLPFTpl() {}
+
+template <typename Scalar>
+const std::size_t& StateLPFTpl<Scalar>::get_nw() const {
+  return nw_;
+}
+
+template <typename Scalar>
+const std::size_t& StateLPFTpl<Scalar>::get_ny() const {
+  return ny_;
+}
 
 template <typename Scalar>
 typename MathBaseTpl<Scalar>::VectorXs StateLPFTpl<Scalar>::zero() const {

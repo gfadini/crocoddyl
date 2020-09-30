@@ -27,7 +27,7 @@ class StateLPFTpl : public StateAbstractTpl<_Scalar> {
 
   enum JointType { FreeFlyer = 0, Spherical, Simple };
 
-  explicit StateLPFTpl(boost::shared_ptr<pinocchio::ModelTpl<Scalar> > model, int nu = 0);
+  explicit StateLPFTpl(boost::shared_ptr<pinocchio::ModelTpl<Scalar> > model, std::size_t nu = 0);
   virtual ~StateLPFTpl();
 
   virtual VectorXs zero() const;
@@ -46,6 +46,8 @@ class StateLPFTpl : public StateAbstractTpl<_Scalar> {
                                    Eigen::Ref<MatrixXs> Jin, const Jcomponent firstsecond) const;
 
   const boost::shared_ptr<pinocchio::ModelTpl<Scalar> >& get_pinocchio() const;
+  const std::size_t& get_nw() const;
+  const std::size_t& get_ny() const;
 
  protected:
   using Base::has_limits_;
@@ -55,8 +57,8 @@ class StateLPFTpl : public StateAbstractTpl<_Scalar> {
   using Base::nv_;
   using Base::nx_;
   using Base::ub_;
-  int nw_;
-  int ny_;
+  std::size_t nw_;
+  std::size_t ny_;
 
  private:
   boost::shared_ptr<pinocchio::ModelTpl<Scalar> > pinocchio_;

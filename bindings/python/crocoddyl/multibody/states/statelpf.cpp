@@ -77,7 +77,13 @@ void exposeStateLPF() {
                        ":return the partial derivative(s) of the integrate(x, dx) function"))
       .add_property("pinocchio",
                     bp::make_function(&StateLPF::get_pinocchio, bp::return_value_policy<bp::return_by_value>()),
-                    "pinocchio model");
+                    "pinocchio model")
+      .add_property("nw",
+                    bp::make_function(&StateLPF::get_nw, bp::return_value_policy<bp::return_by_value>()),
+                    "dimension of tangent space of the unfiltered torque")
+      .add_property("ny",
+                    bp::make_function(&StateLPF::get_ny, bp::return_value_policy<bp::return_by_value>()),
+                    "dimension of tangent space of the augmented space");
 }
 
 }  // namespace python

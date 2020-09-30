@@ -61,8 +61,9 @@ class IntegratedActionModelLPFTpl : public ActionModelAbstractTpl<_Scalar> {
   using Base::u_lb_;                //!< Lower control limits
   using Base::u_ub_;                //!< Upper control limits
   using Base::unone_;               //!< Neutral state
-  int nw_;                          //!< Unfiltered torque dimension
-  int ny_;                          //!< Augmented state dimension
+  std::size_t nw_;                          //!< Unfiltered torque dimension
+  std::size_t ny_;                          //!< Augmented state dimension
+  // StateLPF state2_;
 
  private:
   boost::shared_ptr<DifferentialActionModelAbstract> differential_;

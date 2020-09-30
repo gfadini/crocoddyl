@@ -35,6 +35,8 @@ IntegratedActionModelLPFTpl<Scalar>::IntegratedActionModelLPFTpl(
   if (time_step == Scalar(0.)) {
     enable_integration_ = false;
   }
+  // overwrite the state
+  // state2_ = StateLPFTpl<Scalar> (static_cast<DifferentialActionModelFreeFwdDynamicsTpl<Scalar>>(differential_)->get_pinocchio(), nu_);
 }
 
 template <typename Scalar>
@@ -50,7 +52,7 @@ void IntegratedActionModelLPFTpl<Scalar>::calc(const boost::shared_ptr<ActionDat
 
   if (static_cast<std::size_t>(x.size()) != state_->get_nx()) {
     throw_pretty("Invalid argument: "
-                 << "x has wrong dimension (it should be " + std::to_string(state_->get_nx()) + ")" + 
+                 << "x has wrong dimension (it should be " + std::to_string(state_->get_nx()) + ")" +
                  "but it is " + std::to_string(x.size()));
   }
   if (static_cast<std::size_t>(u.size()) != nu_) {
