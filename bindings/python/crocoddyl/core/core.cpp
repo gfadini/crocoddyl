@@ -41,7 +41,8 @@ void exposeCore() {
   exposeActivationWeightedQuad();
   exposeActivationQuadraticBarrier();
   exposeActivationWeightedQuadraticBarrier();
-  exposeActivationSmoothAbs();
+  exposeActivationSmooth1Norm();
+  exposeActivationSmooth2Norm();
   exposeSolverKKT();
   exposeSolverDDP();
   exposeSolverFDDP();
