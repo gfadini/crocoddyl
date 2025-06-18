@@ -10,7 +10,6 @@
 #ifndef CROCODDYL_ARM_KINOVA_FACTORY_HPP_
 #define CROCODDYL_ARM_KINOVA_FACTORY_HPP_
 
-#include <example-robot-data/path.hpp>
 #include <pinocchio/parsers/srdf.hpp>
 #include <pinocchio/parsers/urdf.hpp>
 

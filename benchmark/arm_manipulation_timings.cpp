@@ -7,7 +7,6 @@
 // All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
 
-#include <example-robot-data/path.hpp>
 #include <pinocchio/algorithm/model.hpp>
 #include <pinocchio/parsers/urdf.hpp>
 
