@@ -10,7 +10,6 @@
 #ifndef CROCODDYL_LEGGED_ROBOTS_FACTORY_HPP_
 #define CROCODDYL_LEGGED_ROBOTS_FACTORY_HPP_
 
-#include <example-robot-data/path.hpp>
 #include <pinocchio/parsers/srdf.hpp>
 #include <pinocchio/parsers/urdf.hpp>
 
