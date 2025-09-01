@@ -29,9 +29,9 @@ ResidualModelContactControlGravTpl<Scalar>::ResidualModelContactControlGravTpl(
 
 template <typename Scalar>
 void ResidualModelContactControlGravTpl<Scalar>::calc(
-    const std::shared_ptr<ResidualDataAbstract> &data,
-    const Eigen::Ref<const VectorXs> &x, const Eigen::Ref<const VectorXs> &) {
-  Data *d = static_cast<Data *>(data.get());
+    const std::shared_ptr<ResidualDataAbstract>& data,
+    const Eigen::Ref<const VectorXs>& x, const Eigen::Ref<const VectorXs>&) {
+  Data* d = static_cast<Data*>(data.get());
 
   const Eigen::VectorBlock<const Eigen::Ref<const VectorXs>, Eigen::Dynamic> q =
       x.head(state_->get_nq());
@@ -41,9 +41,9 @@ void ResidualModelContactControlGravTpl<Scalar>::calc(
 
 template <typename Scalar>
 void ResidualModelContactControlGravTpl<Scalar>::calc(
-    const std::shared_ptr<ResidualDataAbstract> &data,
-    const Eigen::Ref<const VectorXs> &x) {
-  Data *d = static_cast<Data *>(data.get());
+    const std::shared_ptr<ResidualDataAbstract>& data,
+    const Eigen::Ref<const VectorXs>& x) {
+  Data* d = static_cast<Data*>(data.get());
 
   const Eigen::VectorBlock<const Eigen::Ref<const VectorXs>, Eigen::Dynamic> q =
       x.head(state_->get_nq());
@@ -52,9 +52,9 @@ void ResidualModelContactControlGravTpl<Scalar>::calc(
 
 template <typename Scalar>
 void ResidualModelContactControlGravTpl<Scalar>::calcDiff(
-    const std::shared_ptr<ResidualDataAbstract> &data,
-    const Eigen::Ref<const VectorXs> &x, const Eigen::Ref<const VectorXs> &) {
-  Data *d = static_cast<Data *>(data.get());
+    const std::shared_ptr<ResidualDataAbstract>& data,
+    const Eigen::Ref<const VectorXs>& x, const Eigen::Ref<const VectorXs>&) {
+  Data* d = static_cast<Data*>(data.get());
 
   const Eigen::VectorBlock<const Eigen::Ref<const VectorXs>, Eigen::Dynamic> q =
       x.head(state_->get_nq());
@@ -68,9 +68,9 @@ void ResidualModelContactControlGravTpl<Scalar>::calcDiff(
 
 template <typename Scalar>
 void ResidualModelContactControlGravTpl<Scalar>::calcDiff(
-    const std::shared_ptr<ResidualDataAbstract> &data,
-    const Eigen::Ref<const VectorXs> &x) {
-  Data *d = static_cast<Data *>(data.get());
+    const std::shared_ptr<ResidualDataAbstract>& data,
+    const Eigen::Ref<const VectorXs>& x) {
+  Data* d = static_cast<Data*>(data.get());
 
   const Eigen::VectorBlock<const Eigen::Ref<const VectorXs>, Eigen::Dynamic> q =
       x.head(state_->get_nq());
@@ -84,7 +84,7 @@ void ResidualModelContactControlGravTpl<Scalar>::calcDiff(
 template <typename Scalar>
 std::shared_ptr<ResidualDataAbstractTpl<Scalar> >
 ResidualModelContactControlGravTpl<Scalar>::createData(
-    DataCollectorAbstract *const data) {
+    DataCollectorAbstract* const data) {
   return std::allocate_shared<Data>(Eigen::aligned_allocator<Data>(), this,
                                     data);
 }
@@ -102,7 +102,7 @@ ResidualModelContactControlGravTpl<Scalar>::cast() const {
 }
 
 template <typename Scalar>
-void ResidualModelContactControlGravTpl<Scalar>::print(std::ostream &os) const {
+void ResidualModelContactControlGravTpl<Scalar>::print(std::ostream& os) const {
   os << "ResidualModelContactControlGrav";
 }
 

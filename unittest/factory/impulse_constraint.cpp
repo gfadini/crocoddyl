@@ -26,7 +26,7 @@ namespace unittest {
 const std::vector<ImpulseConstraintModelTypes::Type>
     ImpulseConstraintModelTypes::all(ImpulseConstraintModelTypes::init_all());
 
-std::ostream &operator<<(std::ostream &os,
+std::ostream& operator<<(std::ostream& os,
                          ImpulseConstraintModelTypes::Type type) {
   switch (type) {
     case ImpulseConstraintModelTypes::CostModelResidualImpulseCoMEquality:
