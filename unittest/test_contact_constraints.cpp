@@ -22,17 +22,17 @@ void test_partial_derivatives_against_contact_numdiff(
     PinocchioModelTypes::Type model_type,
     ActuationModelTypes::Type actuation_type) {
   // create the model
-  const std::shared_ptr<crocoddyl::DifferentialActionModelAbstract> &model =
+  const std::shared_ptr<crocoddyl::DifferentialActionModelAbstract>& model =
       ContactConstraintModelFactory().create(constraint_type, model_type,
                                              actuation_type);
 
   // create the corresponding data object and set the constraint to nan
-  const std::shared_ptr<crocoddyl::DifferentialActionDataAbstract> &data =
+  const std::shared_ptr<crocoddyl::DifferentialActionDataAbstract>& data =
       model->createData();
 
   crocoddyl::DifferentialActionModelNumDiff model_num_diff(model);
-  const std::shared_ptr<crocoddyl::DifferentialActionDataAbstract>
-      &data_num_diff = model_num_diff.createData();
+  const std::shared_ptr<crocoddyl::DifferentialActionDataAbstract>&
+      data_num_diff = model_num_diff.createData();
 
   // Generating random values for the state and control
   Eigen::VectorXd x = model->get_state()->rand();
@@ -62,10 +62,10 @@ void test_partial_derivatives_against_contact_numdiff(
 
   // Checking that casted computation is the same
 #ifdef NDEBUG  // Run only in release mode
-  const std::shared_ptr<crocoddyl::DifferentialActionModelAbstractTpl<float>>
-      &casted_model = model->cast<float>();
-  const std::shared_ptr<crocoddyl::DifferentialActionDataAbstractTpl<float>>
-      &casted_data = casted_model->createData();
+  const std::shared_ptr<crocoddyl::DifferentialActionModelAbstractTpl<float>>&
+      casted_model = model->cast<float>();
+  const std::shared_ptr<crocoddyl::DifferentialActionDataAbstractTpl<float>>&
+      casted_data = casted_model->createData();
   Eigen::VectorXf x_f = x.cast<float>();
   const Eigen::VectorXf u_f = u.cast<float>();
   model->calc(data, x, u);
@@ -96,7 +96,7 @@ void register_contact_constraint_model_unit_tests(
   test_name << "test_" << constraint_type << "_" << actuation_type << "_"
             << model_type;
   std::cout << "Running " << test_name.str() << std::endl;
-  test_suite *ts = BOOST_TEST_SUITE(test_name.str());
+  test_suite* ts = BOOST_TEST_SUITE(test_name.str());
   ts->add(BOOST_TEST_CASE(
       boost::bind(&test_partial_derivatives_against_contact_numdiff,
                   constraint_type, model_type, actuation_type)));
@@ -135,6 +135,6 @@ bool init_function() {
   return true;
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
   return ::boost::unit_test::unit_test_main(&init_function, argc, argv);
 }

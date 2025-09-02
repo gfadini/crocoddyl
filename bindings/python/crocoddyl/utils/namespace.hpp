@@ -22,7 +22,7 @@ namespace python {
 inline std::string getCurrentScopeName() {
   namespace bp = boost::python;
   bp::scope current_scope;
-  return std::string(bp::extract<const char *>(current_scope.attr("__name__")));
+  return std::string(bp::extract<const char*>(current_scope.attr("__name__")));
 }
 
 /**
@@ -32,7 +32,7 @@ inline std::string getCurrentScopeName() {
  * @return the submodule related to the namespace name.
  */
 inline boost::python::object getOrCreatePythonNamespace(
-    const std::string &submodule_name) {
+    const std::string& submodule_name) {
   namespace bp = boost::python;
   const std::string complete_submodule_name =
       getCurrentScopeName() + "." + submodule_name;

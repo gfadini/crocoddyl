@@ -82,9 +82,9 @@ class ResidualModelPairCollisionTpl : public ResidualModelAbstractTpl<_Scalar> {
    * @param[in] x     State point \f$\mathbf{x}\in\mathbb{R}^{ndx}\f$
    * @param[in] u     Control input \f$\mathbf{u}\in\mathbb{R}^{nu}\f$
    */
-  virtual void calc(const std::shared_ptr<ResidualDataAbstract> &data,
-                    const Eigen::Ref<const VectorXs> &x,
-                    const Eigen::Ref<const VectorXs> &u) override;
+  virtual void calc(const std::shared_ptr<ResidualDataAbstract>& data,
+                    const Eigen::Ref<const VectorXs>& x,
+                    const Eigen::Ref<const VectorXs>& u) override;
 
   /**
    * @brief Compute the derivatives of the pair collision residual
@@ -93,12 +93,12 @@ class ResidualModelPairCollisionTpl : public ResidualModelAbstractTpl<_Scalar> {
    * @param[in] x     State point \f$\mathbf{x}\in\mathbb{R}^{ndx}\f$
    * @param[in] u     Control input \f$\mathbf{u}\in\mathbb{R}^{nu}\f$
    */
-  virtual void calcDiff(const std::shared_ptr<ResidualDataAbstract> &data,
-                        const Eigen::Ref<const VectorXs> &x,
-                        const Eigen::Ref<const VectorXs> &u) override;
+  virtual void calcDiff(const std::shared_ptr<ResidualDataAbstract>& data,
+                        const Eigen::Ref<const VectorXs>& x,
+                        const Eigen::Ref<const VectorXs>& u) override;
 
   virtual std::shared_ptr<ResidualDataAbstract> createData(
-      DataCollectorAbstract *const data) override;
+      DataCollectorAbstract* const data) override;
 
   /**
    * @brief Cast the pair-collision residual model to a different scalar type.
@@ -115,7 +115,7 @@ class ResidualModelPairCollisionTpl : public ResidualModelAbstractTpl<_Scalar> {
   /**
    * @brief Return the Pinocchio geometry model
    */
-  const pinocchio::GeometryModel &get_geometry() const;
+  const pinocchio::GeometryModel& get_geometry() const;
 
   /**
    * @brief Return the reference collision pair id
@@ -157,16 +157,16 @@ struct ResidualDataPairCollisionTpl : public ResidualDataAbstractTpl<_Scalar> {
   typedef typename MathBase::Vector3s Vector3s;
 
   template <template <typename Scalar> class Model>
-  ResidualDataPairCollisionTpl(Model<Scalar> *const model,
-                               DataCollectorAbstract *const data)
+  ResidualDataPairCollisionTpl(Model<Scalar>* const model,
+                               DataCollectorAbstract* const data)
       : Base(model, data),
         geometry(pinocchio::GeometryData(model->get_geometry())),
         J(6, model->get_state()->get_nv()) {
     d.setZero();
     J.setZero();
     // Check that proper shared data has been passed
-    DataCollectorMultibodyTpl<Scalar> *d =
-        dynamic_cast<DataCollectorMultibodyTpl<Scalar> *>(shared);
+    DataCollectorMultibodyTpl<Scalar>* d =
+        dynamic_cast<DataCollectorMultibodyTpl<Scalar>*>(shared);
     if (d == NULL) {
       throw_pretty(
           "Invalid argument: the shared data should be derived from "
@@ -178,7 +178,7 @@ struct ResidualDataPairCollisionTpl : public ResidualDataAbstractTpl<_Scalar> {
   virtual ~ResidualDataPairCollisionTpl() = default;
 
   pinocchio::GeometryData geometry;       //!< Pinocchio geometry data
-  pinocchio::DataTpl<Scalar> *pinocchio;  //!< Pinocchio data
+  pinocchio::DataTpl<Scalar>* pinocchio;  //!< Pinocchio data
   Matrix6xs J;                            //!< Jacobian at the collision joint
   Vector3s d;  //!< Vector from joint point to collision point in world frame
   using Base::r;

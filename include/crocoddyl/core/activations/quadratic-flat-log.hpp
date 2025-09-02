@@ -68,8 +68,8 @@ class ActivationModelQuadFlatLogTpl
    * @param[in] data  Quadratic-log activation data
    * @param[in] r     Residual vector \f$\mathbf{r}\in\mathbb{R}^{nr}\f$
    */
-  virtual void calc(const std::shared_ptr<ActivationDataAbstract> &data,
-                    const Eigen::Ref<const VectorXs> &r) override {
+  virtual void calc(const std::shared_ptr<ActivationDataAbstract>& data,
+                    const Eigen::Ref<const VectorXs>& r) override {
     if (static_cast<std::size_t>(r.size()) != nr_) {
       throw_pretty(
           "Invalid argument: " << "r has wrong dimension (it should be " +
@@ -86,8 +86,8 @@ class ActivationModelQuadFlatLogTpl
    * @param[in] data  Quadratic-log activation data
    * @param[in] r     Residual vector \f$\mathbf{r}\in\mathbb{R}^{nr}\f$
    */
-  virtual void calcDiff(const std::shared_ptr<ActivationDataAbstract> &data,
-                        const Eigen::Ref<const VectorXs> &r) override {
+  virtual void calcDiff(const std::shared_ptr<ActivationDataAbstract>& data,
+                        const Eigen::Ref<const VectorXs>& r) override {
     if (static_cast<std::size_t>(r.size()) != nr_) {
       throw_pretty(
           "Invalid argument: " << "r has wrong dimension (it should be " +
@@ -127,7 +127,7 @@ class ActivationModelQuadFlatLogTpl
    *
    * @param[out] os  Output stream object
    */
-  virtual void print(std::ostream &os) const override {
+  virtual void print(std::ostream& os) const override {
     os << "ActivationModelQuadFlatLog {nr=" << nr_ << ", a=" << alpha_ << "}";
   }
 
@@ -156,7 +156,7 @@ struct ActivationDataQuadFlatLogTpl
   typedef ActivationDataAbstractTpl<Scalar> Base;
 
   template <typename Activation>
-  explicit ActivationDataQuadFlatLogTpl(Activation *const activation)
+  explicit ActivationDataQuadFlatLogTpl(Activation* const activation)
       : Base(activation), a0(Scalar(0)), a1(Scalar(0)) {}
   virtual ~ActivationDataQuadFlatLogTpl() = default;
 

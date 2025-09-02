@@ -74,16 +74,16 @@ class ResidualModelControlGravTpl : public ResidualModelAbstractTpl<_Scalar> {
    * @param[in] x     State point \f$\mathbf{x}\in\mathbb{R}^{ndx}\f$
    * @param[in] u     Control input \f$\mathbf{u}\in\mathbb{R}^{nu}\f$
    */
-  virtual void calc(const std::shared_ptr<ResidualDataAbstract> &data,
-                    const Eigen::Ref<const VectorXs> &x,
-                    const Eigen::Ref<const VectorXs> &u) override;
+  virtual void calc(const std::shared_ptr<ResidualDataAbstract>& data,
+                    const Eigen::Ref<const VectorXs>& x,
+                    const Eigen::Ref<const VectorXs>& u) override;
 
   /**
    * @brief @copydoc Base::calc(const std::shared_ptr<ResidualDataAbstract>&
    * data, const Eigen::Ref<const VectorXs>& x)
    */
-  virtual void calc(const std::shared_ptr<ResidualDataAbstract> &data,
-                    const Eigen::Ref<const VectorXs> &x) override;
+  virtual void calc(const std::shared_ptr<ResidualDataAbstract>& data,
+                    const Eigen::Ref<const VectorXs>& x) override;
 
   /**
    * @brief Compute the Jacobians of the control gravity residual
@@ -92,20 +92,20 @@ class ResidualModelControlGravTpl : public ResidualModelAbstractTpl<_Scalar> {
    * @param[in] x     State point \f$\mathbf{x}\in\mathbb{R}^{ndx}\f$
    * @param[in] u     Control input \f$\mathbf{u}\in\mathbb{R}^{nu}\f$
    */
-  virtual void calcDiff(const std::shared_ptr<ResidualDataAbstract> &data,
-                        const Eigen::Ref<const VectorXs> &x,
-                        const Eigen::Ref<const VectorXs> &u) override;
+  virtual void calcDiff(const std::shared_ptr<ResidualDataAbstract>& data,
+                        const Eigen::Ref<const VectorXs>& x,
+                        const Eigen::Ref<const VectorXs>& u) override;
 
   /**
    * @brief @copydoc Base::calcDiff(const
    * std::shared_ptr<ResidualDataAbstract>& data, const Eigen::Ref<const
    * VectorXs>& x)
    */
-  virtual void calcDiff(const std::shared_ptr<ResidualDataAbstract> &data,
-                        const Eigen::Ref<const VectorXs> &x) override;
+  virtual void calcDiff(const std::shared_ptr<ResidualDataAbstract>& data,
+                        const Eigen::Ref<const VectorXs>& x) override;
 
   virtual std::shared_ptr<ResidualDataAbstract> createData(
-      DataCollectorAbstract *const data) override;
+      DataCollectorAbstract* const data) override;
 
   /**
    * @brief Cast the control-gravity residual model to a different scalar type.
@@ -124,7 +124,7 @@ class ResidualModelControlGravTpl : public ResidualModelAbstractTpl<_Scalar> {
    *
    * @param[out] os  Output stream object
    */
-  virtual void print(std::ostream &os) const override;
+  virtual void print(std::ostream& os) const override;
 
  protected:
   using Base::nu_;
@@ -148,20 +148,19 @@ struct ResidualDataControlGravTpl : public ResidualDataAbstractTpl<_Scalar> {
   typedef pinocchio::DataTpl<Scalar> PinocchioData;
 
   template <template <typename Scalar> class Model>
-  ResidualDataControlGravTpl(Model<Scalar> *const model,
-                             DataCollectorAbstract *const data)
+  ResidualDataControlGravTpl(Model<Scalar>* const model,
+                             DataCollectorAbstract* const data)
       : Base(model, data) {
     // Check that proper shared data has been passed
-    DataCollectorActMultibodyTpl<Scalar> *d =
-        dynamic_cast<DataCollectorActMultibodyTpl<Scalar> *>(shared);
+    DataCollectorActMultibodyTpl<Scalar>* d =
+        dynamic_cast<DataCollectorActMultibodyTpl<Scalar>*>(shared);
     if (d == NULL) {
       throw_pretty(
           "Invalid argument: the shared data should be derived from "
           "DataCollectorActMultibodyTpl");
     }
     // Avoids data casting at runtime
-    StateMultibody *sm =
-        static_cast<StateMultibody *>(model->get_state().get());
+    StateMultibody* sm = static_cast<StateMultibody*>(model->get_state().get());
     pinocchio = PinocchioData(*(sm->get_pinocchio().get()));
     actuation = d->actuation;
   }

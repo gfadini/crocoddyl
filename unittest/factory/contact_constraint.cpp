@@ -24,7 +24,7 @@ namespace unittest {
 const std::vector<ContactConstraintModelTypes::Type>
     ContactConstraintModelTypes::all(ContactConstraintModelTypes::init_all());
 
-std::ostream &operator<<(std::ostream &os,
+std::ostream& operator<<(std::ostream& os,
                          ContactConstraintModelTypes::Type type) {
   switch (type) {
     case ContactConstraintModelTypes::
