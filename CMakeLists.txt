@@ -1,8 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
 message(STATUS "CMake version: ${CMAKE_VERSION}")
-if(CMAKE_VERSION VERSION_GREATER "3.12")
-  cmake_policy(SET CMP0074 NEW)
-endif()
 
 # Set up project properties
 set(PROJECT_NAMESPACE loco-3d)
@@ -26,14 +23,6 @@ if(NOT EXISTS "${JRL_CMAKE_MODULES}/base.cmake")
       TARGET jrl-cmakemodules::jrl-cmakemodules
       PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
     message(STATUS "JRL cmakemodules found on system at ${JRL_CMAKE_MODULES}")
-  elseif(${CMAKE_VERSION} VERSION_LESS "3.14.0")
-    message(
-      FATAL_ERROR
-        "\nCan't find jrl-cmakemodules. Please either:\n"
-        "  - use git submodule: 'git submodule update --init'\n"
-        "  - or install https://github.com/jrl-umi3218/jrl-cmakemodules\n"
-        "  - or upgrade your CMake version to >= 3.14 to allow automatic fetching\n"
-    )
   else()
     message(STATUS "JRL cmakemodules not found. Let's fetch it.")
     include(FetchContent)
@@ -108,7 +97,6 @@ set(PROJECT_USE_CMAKE_EXPORT True)
 # Create different building options
 option(ENABLE_VECTORIZATION
        "Enable vectorization and further processor-related optimizations" OFF)
-option(BUILD_PYTHON_INTERFACE "Build the python binding" ON)
 option(BUILD_BENCHMARK "Build the benchmark" ON)
 option(BUILD_EXAMPLES "Build the examples" ON)
 option(BUILD_WITH_IPOPT "Build the IPOPT wrapper." ON)
@@ -132,8 +120,8 @@ if(APPLE) # Use the handmade approach
   set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake/find-external/OpenMP
                         ${CMAKE_MODULE_PATH})
 elseif(UNIX)
-  if(${CMAKE_VERSION} VERSION_GREATER "3.25.0" OR ${CMAKE_VERSION}
-                                                  VERSION_EQUAL "3.25.0")
+  if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.25.0")
+                                                
     set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake/find-external/OpenMP
                           ${CMAKE_MODULE_PATH})
   endif()
@@ -194,8 +182,6 @@ if(BUILD_WITH_MULTITHREADS)
 endif()
 
 if(BUILD_WITH_CODEGEN_SUPPORT)
-  set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/find-external/CppAD/"
-                        ${CMAKE_MODULE_PATH})
   add_project_dependency(cppad 20200000.0 REQUIRED FIND_EXTERNAL CppAD)
   add_project_dependency(cppadcg 2.4.1 REQUIRED)
   add_project_dependency(pycppad 1.2.4 REQUIRED)
