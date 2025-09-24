@@ -92,7 +92,9 @@ set(DOXYGEN_USE_MATHJAX YES)
 set(DOXYGEN_USE_TEMPLATE_CSS YES)
 
 set(CXX_DISABLE_WERROR False)
-set(PROJECT_USE_CMAKE_EXPORT True)
+if(NOT BUILD_STANDALONE_PYTHON_INTERFACE)
+  set(PROJECT_USE_CMAKE_EXPORT True)
+endif()
 
 # Create different building options
 option(ENABLE_VECTORIZATION
@@ -131,6 +133,9 @@ endif()
 if(BUILD_PYTHON_INTERFACE)
   add_project_dependency(eigenpy 3.1.0 REQUIRED PKG_CONFIG_REQUIRES
                          "eigenpy >= 3.1.0")
+  if(BUILD_STANDALONE_PYTHON_INTERFACE)
+      add_project_dependency(${PROJECT_NAME} REQUIRED CONFIG)
+  endif()
 endif(BUILD_PYTHON_INTERFACE)
 add_project_dependency(pinocchio 3.1.0 REQUIRED PKG_CONFIG_REQUIRES
                        "pinocchio >= 3.1.0")
@@ -271,13 +276,14 @@ function(project_config directory lib_name)
                                                "${PROJECT_NAME}_EXPORTS")
 endfunction()
 
-if(UNIX)
+if(UNIX AND NOT BUILD_STANDALONE_PYTHON_INTERFACE)
   # Build options We'd like to deactivate sign conversion since we frequently
   # convert Eigen::Index<>std::size_t Otherwise, activate all warnings.
   add_compile_options(-Wall -Wpedantic -Wextra -Wno-sign-conversion)
 
   add_library(${PROJECT_NAME} SHARED ${${PROJECT_NAME}_SOURCES}
                                      ${${PROJECT_NAME}_HEADERS})
+  add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
   target_include_directories(${PROJECT_NAME}
                              PUBLIC $<INSTALL_INTERFACE:include>)
   target_link_libraries(${PROJECT_NAME} pinocchio::pinocchio)
@@ -345,8 +351,10 @@ if(BUILD_EXAMPLES)
   endif()
 endif()
 
-# PkgConfig packaging of the project
-pkg_config_append_libs(${PROJECT_NAME})
-foreach(boostlib ${BOOST_REQUIRED_COMPONENTS})
-  pkg_config_append_libs("boost_${boostlib}")
-endforeach()
+if(NOT BUILD_STANDALONE_PYTHON_INTERFACE)
+  # PkgConfig packaging of the project
+  pkg_config_append_libs(${PROJECT_NAME})
+  foreach(boostlib ${BOOST_REQUIRED_COMPONENTS})
+    pkg_config_append_libs("boost_${boostlib}")
+  endforeach()
+endif()
