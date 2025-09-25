@@ -29,10 +29,11 @@ function(crocoddyl_python_library_for_scalar scalar)
                                ${${PROJECT_NAME}_PYTHON_BINDINGS_HEADERS})
   set_target_properties(${PYWRAP} PROPERTIES SUFFIX ${PYTHON_EXT_SUFFIX})
   # Link the target against the main library and EigenPy
-  target_link_libraries(${PYWRAP} ${PROJECT_NAME} eigenpy::eigenpy)
+  target_link_libraries(${PYWRAP} ${PROJECT_NAME}::${PROJECT_NAME}
+                        eigenpy::eigenpy)
   # Link against pycppad if code generation is enabled
   if(BUILD_WITH_CODEGEN_SUPPORT)
-    target_link_libraries(${PYWRAP} ${PROJECT_NAME} pycppad::pycppad)
+    target_link_libraries(${PYWRAP} pycppad::pycppad)
   endif()
   # Suppress specific compiler warnings for wrapper code
   # BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS spews conversion warnings from int to

@@ -12,7 +12,7 @@ list(APPEND ${PROJECT_NAME}_BENCHMARK ${${PROJECT_NAME}_CODEGEN_BENCHMARK})
 
 foreach(BENCHMARK_NAME ${${PROJECT_NAME}_BENCHMARK})
   add_executable(${BENCHMARK_NAME} ${BENCHMARK_NAME}.cpp)
-  target_link_libraries(${BENCHMARK_NAME} ${PROJECT_NAME}
+  target_link_libraries(${BENCHMARK_NAME} ${PROJECT_NAME}::${PROJECT_NAME}
                         example-robot-data::example-robot-data)
   add_custom_target("benchmark-cpp-${BENCHMARK_NAME}" ${BENCHMARK_NAME}
                                                       \${INPUT})
