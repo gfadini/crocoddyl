@@ -123,7 +123,7 @@ if(APPLE) # Use the handmade approach
                         ${CMAKE_MODULE_PATH})
 elseif(UNIX)
   if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.25.0")
-                                                
+
     set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake/find-external/OpenMP
                           ${CMAKE_MODULE_PATH})
   endif()
@@ -134,7 +134,7 @@ if(BUILD_PYTHON_INTERFACE)
   add_project_dependency(eigenpy 3.1.0 REQUIRED PKG_CONFIG_REQUIRES
                          "eigenpy >= 3.1.0")
   if(BUILD_STANDALONE_PYTHON_INTERFACE)
-      add_project_dependency(${PROJECT_NAME} REQUIRED CONFIG)
+    add_project_dependency(${PROJECT_NAME} REQUIRED CONFIG)
   endif()
 endif(BUILD_PYTHON_INTERFACE)
 add_project_dependency(pinocchio 3.1.0 REQUIRED PKG_CONFIG_REQUIRES
