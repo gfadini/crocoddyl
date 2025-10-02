@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.1.0] - 1980-01-01
+
 * Allow use of BUILD_STANDALONE_PYTHON_INTERFACE CMake option in https://github.com/loco-3d/crocoddyl/pull/1434
 * Migrated notebooks to Meshcat in https://github.com/loco-3d/crocoddyl/pull/1404
 * Updated the rotation transpose in contact wrench cone to re-use the same object to avoid additional transpose operations. https://github.com/loco-3d/crocoddyl/pull/1343
@@ -339,7 +341,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 Initial release
 
-[Unreleased]: https://github.com/loco-3d/crocoddyl/compare/v3.0.1...HEAD
+[Unreleased]: https://github.com/loco-3d/crocoddyl/compare/v3.1.0...HEAD
+[3.1.0]: https://github.com/loco-3d/crocoddyl/compare/v3.0.1...v3.1.0
 [3.0.1]: https://github.com/loco-3d/crocoddyl/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/loco-3d/crocoddyl/compare/v2.2.0...v3.0.0
 [2.2.0]: https://github.com/loco-3d/crocoddyl/compare/v2.1.0...v2.2.0
