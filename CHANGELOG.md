@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
-## [3.1.0] - 1980-01-01
+## [3.1.0] - 2025-10-02
 
 * Allow use of BUILD_STANDALONE_PYTHON_INTERFACE CMake option in https://github.com/loco-3d/crocoddyl/pull/1434
 * Migrated notebooks to Meshcat in https://github.com/loco-3d/crocoddyl/pull/1404
