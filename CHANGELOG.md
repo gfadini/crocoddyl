@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+* ROS: jrl_cmakemodules dependency + kilted CI in https://github.com/loco-3d/crocoddyl/pull/1441
+
 ## [3.1.0] - 2025-10-02
 
 * Allow use of BUILD_STANDALONE_PYTHON_INTERFACE CMake option in https://github.com/loco-3d/crocoddyl/pull/1434
