@@ -56,6 +56,7 @@
           packages = {
             default = self'.packages.crocoddyl;
             crocoddyl = pkgs.python3Packages.crocoddyl.overrideAttrs (super: {
+              patches = [ ];
               src = pkgs.lib.fileset.toSource {
                 root = ./.;
                 fileset = pkgs.lib.fileset.unions [
