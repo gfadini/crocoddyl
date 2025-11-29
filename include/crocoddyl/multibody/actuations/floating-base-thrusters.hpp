@@ -183,6 +183,10 @@ class ActuationModelFloatingBaseThrustersTpl
       W_thrust_.bottomRightCorner(nu_ - n_thrusters_, nu_ - n_thrusters_)
           .diagonal()
           .setOnes();
+      Base::u_lb_.tail(nu_ - n_thrusters_) =
+          Scalar(-1.) * state->get_pinocchio()->effortLimit;
+      Base::u_ub_.tail(nu_ - n_thrusters_) =
+          state->get_pinocchio()->effortLimit;
     }
     // Update the floating base actuation part
     set_thrusters(thrusters_);
@@ -316,6 +320,8 @@ class ActuationModelFloatingBaseThrustersTpl
           W_thrust_.template middleRows<3>(3).col(i) -= p.ctorque * f_z;
           break;
       }
+      Base::u_lb_(i) = p.min_thrust;
+      Base::u_ub_(i) = p.max_thrust;
     }
     // Compute the torque transform matrix from generalized torques to joint
     // torque inputs
