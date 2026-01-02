@@ -2,7 +2,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // BSD 3-Clause License
 //
-// Copyright (C) 2019-2025, LAAS-CNRS, INRIA, University of Edinburgh,
+// Copyright (C) 2019-2026, LAAS-CNRS, INRIA, University of Edinburgh,
 //                          Heriot-Watt University
 // Copyright note valid unless otherwise stated in individual files.
 // All rights reserved.
@@ -98,7 +98,7 @@ class ActionModelCodeGenTpl : public ActionModelAbstractTpl<_Scalar> {
    * @param[in] updateParams  Function used to update the calc and calcDiff's
    * parameters (default empty function)
    * @param[in] compiler      Type of compiler GCC or CLANG (default: CLANG)
-   * @param[in] compile_options  Compilation flags (default: "-Ofast
+   * @param[in] compile_options  Compilation flags (default: "-O3 -ffast-math
    * -march=native")
    */
   ActionModelCodeGenTpl(
@@ -106,7 +106,7 @@ class ActionModelCodeGenTpl : public ActionModelAbstractTpl<_Scalar> {
       bool autodiff = false, const std::size_t np = 0,
       ParamsEnvironment updateParams = EmptyParamsEnv,
       CompilerType compiler = CLANG,
-      const std::string& compile_options = "-Ofast -march=native");
+      const std::string& compile_options = "-O3 -ffast-math -march=native");
 
   /**
    * @brief Initialize the code generated action model from an AD model
@@ -120,7 +120,7 @@ class ActionModelCodeGenTpl : public ActionModelAbstractTpl<_Scalar> {
    * @param[in] updateParams  Function used to update the calc and calcDiff's
    * parameters (default empty function)
    * @param[in] compiler      Type of compiler GCC or CLANG (default: CLANG)
-   * @param[in] compile_options  Compilation flags (default: "-Ofast
+   * @param[in] compile_options  Compilation flags (default: "-O3 -ffast-math
    * -march=native")
    */
   ActionModelCodeGenTpl(
@@ -128,7 +128,7 @@ class ActionModelCodeGenTpl : public ActionModelAbstractTpl<_Scalar> {
       bool autodiff = false, const std::size_t np = 0,
       ParamsEnvironment updateParams = EmptyParamsEnv,
       CompilerType compiler = CLANG,
-      const std::string& compile_options = "-Ofast -march=native");
+      const std::string& compile_options = "-O3 -ffast-math -march=native");
 
   /**
    * @brief Initialize the code generated action model from an pre-compiled
