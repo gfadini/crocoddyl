@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 * Fixed the compiler-flag definition used for action codegen + updated default compilation flags in https://github.com/loco-3d/crocoddyl/pull/1469
+
+## [3.2.0] - 2025-12-09
+
+* Introduced the actuation limits to handle thrusters and general action models in https://github.com/loco-3d/crocoddyl/pull/1455
 * Introduced safe difference and integration functions for states in https://github.com/loco-3d/crocoddyl/pull/1448
 * ROS: jrl_cmakemodules dependency + kilted CI in https://github.com/loco-3d/crocoddyl/pull/1441
 
@@ -345,7 +349,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 Initial release
 
-[Unreleased]: https://github.com/loco-3d/crocoddyl/compare/v3.1.0...HEAD
+[Unreleased]: https://github.com/loco-3d/crocoddyl/compare/v3.2.0...HEAD
+[3.2.0]: https://github.com/loco-3d/crocoddyl/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/loco-3d/crocoddyl/compare/v3.0.1...v3.1.0
 [3.0.1]: https://github.com/loco-3d/crocoddyl/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/loco-3d/crocoddyl/compare/v2.2.0...v3.0.0

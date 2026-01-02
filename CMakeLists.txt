@@ -292,6 +292,12 @@ if(UNIX AND NOT BUILD_STANDALONE_PYTHON_INTERFACE)
     ${PROJECT_NAME} PUBLIC PINOCCHIO_ENABLE_COMPATIBILITY_WITH_VERSION_2)
   set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
 
+  if(BUILD_WITH_CODEGEN_SUPPORT)
+    # CppAD is header-only but ships cppad_lib for non-header utilities (e.g.
+    # temp_file)
+    target_link_libraries(${PROJECT_NAME} ${cppad_LIBRARY})
+  endif()
+
   if(BUILD_WITH_MULTITHREADS)
     target_link_libraries(${PROJECT_NAME} OpenMP::OpenMP_CXX)
   endif()
