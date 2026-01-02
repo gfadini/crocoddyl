@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+* Fixed the compiler-flag definition used for action codegen + updated default compilation flags in https://github.com/loco-3d/crocoddyl/pull/1469
+
 ## [3.2.0] - 2025-12-09
 
 * Introduced the actuation limits to handle thrusters and general action models in https://github.com/loco-3d/crocoddyl/pull/1455
